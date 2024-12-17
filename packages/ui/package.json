@@ -11,15 +11,15 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@turbo/gen": "^1.12.4",
     "@types/node": "^20.11.24",
-    "@types/react": "18.3.0",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2",
     "typescript": "5.5.4"
   },
   "dependencies": {
