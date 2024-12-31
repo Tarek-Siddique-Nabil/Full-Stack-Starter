@@ -4,32 +4,36 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "clean": "rm -rf .next",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint --max-warnings 0",
-    "typecheck": "tsc --noEmit"
+    "build": "pnpm  next build",
+    "clean": "git clean -xdf .cache .next .turbo node_modules",
+    "dev": "pnpm with-env next dev",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "start": "pnpm with-env next start",
+    "typecheck": "tsc --noEmit",
+    "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.1",
-    "tailwindcss-animate": "^1.0.7"
+    "react": "catalog:react18",
+    "react-dom": "catalog:react18",
+    "next": "^14.2.15"
   },
   "peerDependencies": {
     "sonner": "^1.7.1"
   },
   "devDependencies": {
     "@repo/ui": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "eslint": "^9.15.0",
-    "tailwindcss": "^3.4.1",
-    "postcss": "^8.4.49",
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19"
-  }
+    "@tooling/eslint-config": "workspace:*",
+    "@tooling/tsconfig": "workspace:*",
+    "@tooling/tailwind-config": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "@types/node": "^20.16.11",
+    "@types/react": "catalog:react18",
+    "@types/react-dom": "catalog:react18"
+  },
+
+  "prettier": "@tooling/prettier-config"
 }

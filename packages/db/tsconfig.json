@@ -1,15 +1,15 @@
 {
-    "extends": "@repo/typescript-config/base.json",
+    "extends": "@tooling/tsconfig/internal-package.json",
     "compilerOptions": {
-        "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+        "baseUrl": ".",
         "paths": {
             "@schema/*": [
-                "./src/schema/*"
+                "src/schema/*"
             ],
         }
     },
     "include": [
-        "./src/**/*.ts"
+        "src"
     ],
     "exclude": [
         "node_modules"

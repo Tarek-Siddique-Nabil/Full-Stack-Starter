@@ -1,19 +1,27 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@tooling/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "lib": [
+      "ES2022",
+      "dom",
+      "dom.iterable"
+    ],
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "module": "esnext"
   },
   "include": [
-    "next-env.d.ts",
-    "next.config.js",
-    "**/*.js",
-    "**/*.ts",
-    "**/*.tsx",
+    ".",
     ".next/types/**/*.ts"
   ],
   "exclude": [
