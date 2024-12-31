@@ -7,7 +7,13 @@
       "dom.iterable"
     ],
     "jsx": "preserve",
-    "rootDir": "."
+    "rootDir": ".",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "src"

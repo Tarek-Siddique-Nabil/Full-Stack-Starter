@@ -13,6 +13,9 @@
     "ui-add": "pnpm dlx shadcn@latest add && prettier src --write --list-different"
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-select": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -27,6 +30,8 @@
   },
   "devDependencies": {
     "@tooling/eslint-config": "workspace:*",
+    "@tooling/prettier-config": "workspace:*",
+    "@tooling/tailwind-config": "workspace:*",
     "@tooling/tsconfig": "workspace:*",
     "@turbo/gen": "^1.12.4",
     "@types/react": "catalog:react18",
@@ -48,5 +53,6 @@
         "./src/*.tsx"
       ]
     }
-  }
+  },
+  "prettier": "@tooling/prettier-config"
 }
