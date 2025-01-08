@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "envMode": "strict",
   "tasks": {
     "build": {
       "dependsOn": [
@@ -58,5 +59,8 @@
   },
   "globalEnv": [
     "DATABASE_URL"
-  ]
+  ],
+ "globalPassThroughEnv": [
+    "NODE_ENV"
+ ]
 }
