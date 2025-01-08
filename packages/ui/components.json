@@ -10,10 +10,11 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@repo/ui/components",
-    "ui": "@repo/ui/components",
+    "components": "@/components",
     "utils": "@repo/ui/lib/utils",
-    "lib": "@repo/ui/lib",
-    "hooks": "@repo/ui/hooks"
-  }
+    "ui": "@/components/shadcn",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
 }
