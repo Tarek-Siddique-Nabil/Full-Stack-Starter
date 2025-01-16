@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/components/shadcn/button";
+import { Button } from "@repo/ui/button";
 import {
   Card,
   CardContent,
@@ -6,16 +6,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/shadcn/card";
-import { Input } from "@repo/ui/components/shadcn/input"
-import { Label } from "@repo/ui/components/shadcn/label"
+} from "@repo/ui/card";
+import { Input } from "@repo/ui/input"
+import { Label } from "@repo/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/ui/components/shadcn/select"
+} from "@repo/ui/select"
 import { toast } from "sonner";
 export default function App() {
   return (
