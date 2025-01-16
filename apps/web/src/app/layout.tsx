@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import { Toaster } from "@repo/ui/components/shadcn/sonner";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={` antialiased`}>
         {children}
-        {/* <Toaster /> */}
+    <Toaster /> 
       </body>
     </html>
   );

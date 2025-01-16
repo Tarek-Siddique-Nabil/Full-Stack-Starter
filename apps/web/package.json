@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm  next build",
-    "clean": "git clean -xdf .cache .next .turbo node_modules",
+    "clean": "git clean -xdf .cache .next .turbo node_modules -f",
     "dev": "pnpm next dev",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",

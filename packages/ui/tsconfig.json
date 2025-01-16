@@ -8,12 +8,7 @@
     ],
     "jsx": "preserve",
     "rootDir": ".",
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+    "outDir": "dist",
   },
   "include": [
     "src"

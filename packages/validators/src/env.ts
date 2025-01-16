@@ -3,11 +3,14 @@ import path from "node:path";
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 import { z } from "zod";
+import { fileURLToPath } from "node:url";
 
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(currentDir, '../../..');
 expand(
   config({
     path: path.resolve(
-      process.cwd(),
+     rootDir,
       process.env.NODE_ENV === "development" ? ".env.development" : ".env",
     ),
   }),
