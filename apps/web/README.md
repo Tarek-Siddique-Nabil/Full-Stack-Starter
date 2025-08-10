@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web Application
 
-## Getting Started
+Next.js 15 frontend application with type-safe ORPC client integration.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 15** with App Router
+- **Type-safe API** calls with ORPC
+- **Authentication** integration
+- **UI Components** with shadcn/ui
+- **Real-time** updates with TanStack Query
+- **Responsive** design with Tailwind CSS
+
+## 🏗️ Architecture
+
+```
+src/
+├── app/              # Next.js App Router pages
+├── components/       # React components
+├── hooks/           # Custom React hooks
+├── lib/             # Utilities and configurations
+└── constants/       # Application constants
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Start Development Server
+```bash
+pnpm dev
+```
+App starts at: http://localhost:3001
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build for Production
+```bash
+pnpm build
+pnpm start
+```
 
-## Learn More
+### Type Checking
+```bash
+pnpm typecheck
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Linting
+```bash
+pnpm lint
+pnpm lint:fix
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Key Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ORPC Integration
+- Type-safe API calls
+- Automatic request/response validation
+- React Query integration for caching
 
-## Deploy on Vercel
+### Authentication
+- JWT-based authentication
+- Protected routes
+- User session management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### UI Components
+- Pre-built shadcn/ui components
+- Consistent design system
+- Dark/light theme support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Adding UI Components
+
+```bash
+# From root directory
+pnpm sh:add button
+pnpm sh:add card
+pnpm sh:add dialog
+```
+
+Components are added to `packages/ui/src/components`
+
+## 📚 Key Files
+
+- `src/app/layout.tsx` - Root layout and providers
+- `src/components/providers.tsx` - React Query and theme providers
+- `src/lib/api.ts` - ORPC client configuration
+- `src/components/theme-toggle.tsx` - Theme switcher
+
+## 🔗 API Integration
+
+The app uses ORPC client for type-safe API calls:
+
+```typescript
+import { api } from '@/lib/api'
+
+// Type-safe API calls
+const { data: todos } = api.todos.list.useQuery({
+  limit: 10,
+  cursor: 0
+})
+```
+
+## 🌐 Pages
+
+- `/` - Home page
+- `/auth/signin` - Sign in page  
+- `/auth/signup` - Sign up page
+- `/dashboard` - Protected dashboard
+- `/todos` - Todo management
+
+## 📱 Responsive Design
+
+- Mobile-first approach
+- Tailwind CSS utilities
+- Flexible grid layouts
+- Touch-friendly interactions
+
+## 🎯 Performance
+
+- Next.js optimizations
+- React Query caching
+- Code splitting
+- Image optimization
+- Bundle analysis available
+
+## 🔧 Configuration
+
+Environment variables (see `.env.example`):
+- `NEXT_PUBLIC_API_URL` - API server URL
+- `NEXT_PUBLIC_APP_URL` - Frontend URL
