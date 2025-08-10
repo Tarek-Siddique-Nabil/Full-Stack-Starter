@@ -1,33 +1,49 @@
 {
-  "name": "full-stack-starter",
+  "name": "ultimate-chatbot",
+  "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@9.12.0",
-  "engines": {
-    "node": ">=20.16.0",
-    "pnpm": ">=9.6.0"
-  },
   "scripts": {
-    "build": "turbo run build",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo run clean",
-    "db:push": "turbo -F @repo/db push",
-    "db:studio": "turbo -F @repo/db studio",
-    "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F web...",
-    "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
-    "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
-    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
-    "lint:ws": "pnpm dlx sherif@latest",
-   
-    "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add"
+    "analyze": "turbo analyze",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "format": "ultracite format",
+    "lint": "ultracite lint",
+    "clean": "git clean -xdf node_modules .turbo",
+    "dev:web": "turbo dev --filter=web",
+    "db:generate": "cd packages/db && pnpm with-env drizzle-kit generate",
+    "db:migrate": "cd packages/db && pnpm with-env drizzle-kit migrate",
+    "db:pull": "cd packages/db && pnpm with-env drizzle-kit pull",
+    "db:studio": "cd packages/db && pnpm with-env drizzle-kit studio --port=3005",
+    "sh:add": "cd packages/ui && pnpm dlx shadcn@latest add",
+    "gen:models": "pnpm run -F ai gen:models"
   },
   "devDependencies": {
-    "prettier": "catalog:",
-    "turbo": "^2.3.3",
-    "typescript": "catalog:"
+    "@biomejs/biome": "2.1.2",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@repo/typescript-config": "workspace:*",
+    "@turbo/gen": "^2.4.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "turbo": "^2.5.5",
+    "typescript": "catalog:",
+    "ultracite": "5.0.47"
   },
-  "prettier": "@tooling/prettier-config"
-
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10.4.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js-pure",
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
+      "npx ultracite format"
+    ]
+  }
 }

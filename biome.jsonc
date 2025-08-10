@@ -1,0 +1,24 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+  "extends": ["ultracite"],
+  "files": {
+    "includes": [
+      "apps/web/**/*",
+      "packages/ai/**/*",
+      "apps/api/**/*",
+      "packages/db/**/*",
+      "packages/contract/**/*"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "noSvgWithoutTitle": "off"
+      },
+      "nursery": {
+        "noNoninteractiveElementInteractions": "off"
+      }
+    }
+  }
+}

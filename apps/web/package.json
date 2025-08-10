@@ -1,39 +1,51 @@
 {
   "name": "web",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
   "type": "module",
+  "private": true,
   "scripts": {
-    "build": "pnpm  next build",
-    "clean": "git clean -xdf .cache .next .turbo node_modules -f",
-    "dev": "pnpm next dev",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "start": "pnpm with-env next start",
-    "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
+    "lint:fix-unsafe": "pnpm exec biome lint --write --unsafe ./src",
+    "analyze": "ANALYZE=true pnpm run build",
+    "clean": "git clean -xdf .cache .turbo dist .next node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "react": "catalog:react18",
-    "react-dom": "catalog:react18",
-    "next": "^14.2.15"
-  },
-  "peerDependencies": {
-    "sonner": "^1.7.1"
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/modifiers": "9.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@hookform/resolvers": "^3.10.0",
+    "@orpc/client": "^1.7.11",
+    "@orpc/contract": "^1.7.11",
+    "@orpc/openapi": "^1.7.11",
+    "@orpc/react-query": "^1.7.11",
+    "@orpc/server": "^1.7.11",
+    "@orpc/zod": "^1.7.11",
+    "@remixicon/react": "^4.6.0",
+    "@repo/ui": "workspace:*",
+    "@scalar/hono-api-reference": "^0.9.13",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "date-fns": "^4.1.0",
+    "jiti": "^2.4.2",
+    "lucide-react": "^0.475.0",
+    "motion": "^12.23.3",
+    "next": "^15.2.3",
+    "next-themes": "^0.4.4",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-hook-form": "^7.60.0",
+    "sonner": "^2.0.6",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/ui": "workspace:*",
-    "@tooling/eslint-config": "workspace:*",
-    "@tooling/tsconfig": "workspace:*",
-    "@tooling/tailwind-config": "workspace:*",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:",
-    "@types/node": "^20.16.11",
-    "@types/react": "catalog:react18",
-    "@types/react-dom": "catalog:react18"
-  },
-
-  "prettier": "@tooling/prettier-config"
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "typescript": "catalog:"
+  }
 }

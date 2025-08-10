@@ -1,0 +1,29 @@
+{
+  "name": "@repo/contract",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "peerDependencies": {
+    "@types/pg": "^8.15.5"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "@orpc/contract": "^1.7.11",
+    "@orpc/zod": "^1.7.11",
+    "@repo/db": "workspace:*",
+    "drizzle-zod": "^0.8.3",
+    "zod": "catalog:"
+  }
+}

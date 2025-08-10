@@ -1,66 +1,42 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
   "ui": "tui",
-  "envMode": "strict",
+  "envMode": "loose",
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".cache/tsbuildinfo.json",
-        "dist/**"
-      ]
-    },
-    "dev": {
-      "dependsOn": [
-        "^dev"
-      ],
-      "cache": false,
-      "persistent": false
-    },
-    "format": {
-      "outputs": [
-        ".cache/.prettiercache"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**" , "dist/**", "!.turbo/**", "!.cache/**"],
       "outputLogs": "new-only"
     },
-    "lint": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".cache/.eslintcache"
-      ]
+    
+    "analyze": {
+      "dependsOn": ["^analyze"]
     },
-    "typecheck": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".cache/tsbuildinfo.json"
-      ]
+    "dev": {
+      "cache": false,
+      "persistent": true
     },
     "clean": {
       "cache": false
     },
-    "push": {
-      "cache": false,
-      "interactive": true
+    "db:generate":{
+      "dependsOn": ["^db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["packages/db/drizzle/**", "!packages/db/drizzle/.cache/**"]
     },
-    "studio": {
-      "cache": false,
-      "persistent": true
+    "db:migrate": {
+      "dependsOn": ["^db:migrate" , "db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["packages/db/drizzle/**", "!packages/db/drizzle/.cache/**"]
     },
-    "ui-add": {
-      "cache": false,
-      "interactive": true
+    "//#format": {},
+    "//#lint": {
+      "cache": false
+    },
+    "//#clean": {
+      "cache": false
     }
-  },
-  "globalEnv": [
-    "DATABASE_URL"
-  ],
- "globalPassThroughEnv": [
-    "NODE_ENV"
- ]
+  }
 }
