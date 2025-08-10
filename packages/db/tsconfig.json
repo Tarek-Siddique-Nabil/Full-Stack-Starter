@@ -1,11 +1,15 @@
 {
-  "extends": "@tooling/tsconfig/internal-package.json",
+  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@schema/*": ["src/schema/*"]
+      "@/*": ["./src/*"],
+      "@repo/*": ["../../packages/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

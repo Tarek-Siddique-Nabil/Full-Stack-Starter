@@ -1,33 +1,47 @@
 {
   "name": "@repo/db",
   "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "license": "MIT",
   "scripts": {
-    "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "dev": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "push": "pnpm with-env drizzle-kit push",
-    "studio": "pnpm with-env drizzle-kit studio",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "with-env": "dotenv -e ../../.env --"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "drizzle-kit": "^0.30.1",
-    "drizzle-orm": "^0.38.2",
-    "pg": "^8.13.1"
+    "build": "tsc --emitDeclarationOnly false",
+    "generate": "pnpm with-env drizzle-kit generate",
+    "migrate": "pnpm with-env drizzle-kit migrate",
+    "push": "pnpm with-env drizzle-kit push",
+    "studio": "pnpm with-env drizzle-kit studio --port=3005",
+    "with-env": "dotenv -e ./.env.local --"
   },
   "devDependencies": {
-    "@tooling/eslint-config": "workspace:*",
-    "@tooling/prettier-config": "workspace:*",
-    "@tooling/tsconfig": "workspace:*",
-    "@types/pg": "^8.11.10",
-    "typescript": "^5.7.2"
+    "@repo/typescript-config": "workspace:*",
+    "@types/pg": "^8.15.5",
+    "dotenv-cli": "^10.0.0",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3"
   },
-  "prettier": "@tooling/prettier-config"
+  "dependencies": {
+    "@orpc/client": "^1.7.11",
+    "@orpc/contract": "^1.7.11",
+    "@orpc/openapi": "^1.7.11",
+    "@orpc/react-query": "^1.7.11",
+    "@orpc/server": "^1.7.11",
+    "@orpc/zod": "^1.7.11",
+    "@scalar/hono-api-reference": "^0.9.13",
+    "@t3-oss/env-core": "^0.13.8",
+    "drizzle-orm": "^0.44.4",
+    "drizzle-zod": "^0.8.3",
+    "pg": "^8.16.3",
+    "zod": "catalog:"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "default": "./src/schema/index.ts"
+    }
+  }
 }
