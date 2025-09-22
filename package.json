@@ -23,9 +23,18 @@
   },
   "packageManager": "pnpm@10.15.1",
   "devDependencies": {
-    "turbo": "catalog:"
+    "@biomejs/biome": "2.2.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.0",
+    "turbo": "catalog:",
+    "ultracite": "5.4.4"
   },
   "engines": {
     "node": ">=22.10.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
+      "pnpm dlx ultracite fix"
+    ]
   }
 }
