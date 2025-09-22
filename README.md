@@ -1,13 +1,11 @@
 <table>
   <tr>
     <td>
-      <a href="https://rtstack.nktnet.uk" target="_blank">
-        <img align="absmiddle" width="40" src="./apps/web/public/favicon.png">
-      </a>
+      <img align="absmiddle" width="40" src="./apps/web/public/favicon.png">
     </td>
     <td>
       <h1>
-        <a href="https://rtstack.nktnet.uk" target="_blank">RT Stack</a>
+        Full-Stack Starter
       </h1>
     </td>
   </tr>
@@ -15,17 +13,17 @@
 
 A modern & lightweight [turborepo](https://turbo.build/repo/docs) template for
 fullstack projects with modular components, shared configs, containerised
-deployments and 100% type-safety.
+deployments and 100% type-safety. This starter pack is heavily inspired by [RT Stack](https://github.com/nktnet1/rt-stack), but has made a few tweaks, such as removing ESLint and Prettier, and instead using [Ultracite](https://www.ultracite.ai/) with Biome for strict type safety, accessibility standards, and code quality.
 
 - [About](#about)
   - [Stack overview](#stack-overview)
   - [Base Functionalities](#base-functionalities)
-  - [Inspirations & Goals](#inspirations--goals)
+  - [Inspirations \& Goals](#inspirations--goals)
 - [Quick Start](#quick-start)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
   - [Using an External Database](#using-an-external-database)
-- [Developing](#developing)
+- [Development](#development)
   - [Working with a single package](#working-with-a-single-package)
   - [Adding new shadcn components](#adding-new-shadcn-components)
   - [Adding new better-auth plugins](#adding-new-better-auth-plugins)
@@ -39,7 +37,6 @@ deployments and 100% type-safety.
   - [Tanstack Router](#tanstack-router)
   - [Server API Artificial Delays](#server-api-artificial-delays)
   - [Environment Variables](#environment-variables)
-  - [Extensions to existing template](#extensions-to-existing-template)
 
 ## About
 
@@ -66,8 +63,6 @@ packages
   |   ├─ tailwindcss
   |   └─ shadcn & radix ui
 tools
-  ├─ eslint
-  ├─ prettier
   ├─ tailwind
   └─ typescript
 ```
@@ -86,9 +81,13 @@ You can visit the [live demo](https://rtstack.nktnet.uk) to see these features i
 
 ### Inspirations & Goals
 
-Many aspects of the RT Stack were derived from the
-[t3-oss/create-t3-turbo](https://github.com/t3-oss/create-t3-turbo). However,
-there is a preference for:
+This starter is heavily inspired by [RT Stack](https://github.com/nktnet1/rt-stack), which itself was derived from [t3-oss/create-t3-turbo](https://github.com/t3-oss/create-t3-turbo). Key differences in this starter include:
+
+- Replacing ESLint and Prettier with [Ultracite](https://www.ultracite.ai/) using Biome's lightning-fast formatter and linter
+- Enforcing strict type safety and accessibility standards
+- Ensuring AI-friendly code generation with zero configuration
+
+Like RT Stack, this template uses:
 
 - [tanstack-router](https://tanstack.com/router/latest) (web) + [hono](https://hono.dev) (server) instead of [nextjs](https://nextjs.org) (fullstack)
 - [better-auth](https://www.better-auth.com) for authentication instead of [auth.js (next-auth)](https://authjs.dev)
@@ -256,11 +255,15 @@ pnpm clean                  # remove all .cache, .turbo, dist, node_modules
 
 pnpm typecheck              # report typescript issues
 
-pnpm format                 # report prettier issues
-pnpm format:fix             # auto-fix prettier issues
+pnpm format                 # check formatting with biome
+pnpm format:fix             # auto-fix formatting issues with biome
 
-pnpm lint                   # report eslint issues
-pnpm lint:fix               # auto-fix eslint issues
+pnpm lint                   # report biome linting issues
+pnpm lint:fix               # auto-fix biome linting issues
+
+npx ultracite init          # initialize Ultracite in your project
+npx ultracite fix           # format and fix code automatically with Ultracite
+npx ultracite check         # check for issues without fixing
 
 pnpx codemod pnpm/catalog   # migrate dependencies to pnpm-workspace.yaml
 ```

@@ -3,36 +3,36 @@ import {
   ArrowUpIcon,
   MagnifyingGlassIcon,
   TrashIcon,
-} from '@radix-ui/react-icons';
-import { Button } from '@repo/ui/components/button';
-import { Input } from '@repo/ui/components/input';
+} from "@radix-ui/react-icons";
+import { Button } from "@repo/ui/components/button";
+import { Input } from "@repo/ui/components/input";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipArrow,
   TooltipProvider,
-} from '@repo/ui/components/tooltip';
-import { useQuery } from '@tanstack/react-query';
+} from "@repo/ui/components/tooltip";
+import { useQuery } from "@tanstack/react-query";
 import {
   createFileRoute,
   stripSearchParams,
   type SearchSchemaInput,
-} from '@tanstack/react-router';
-import { Link, useNavigate } from '@tanstack/react-router';
-import * as v from 'valibot';
-import type { RouterOutput } from '@repo/api/client';
-import { apiClient } from '@/clients/apiClient';
-import { queryClient } from '@/clients/queryClient';
-import CreatePostButton from '@/routes/_protected/posts/-components/create-post';
-import DeletePostButton from '@/routes/_protected/posts/-components/delete-post';
+} from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import * as v from "valibot";
+import type { RouterOutput } from "@repo/api/client";
+import { apiClient } from "@/clients/apiClient";
+import { queryClient } from "@/clients/queryClient";
+import CreatePostButton from "@/routes/_protected/posts/-components/create-post";
+import DeletePostButton from "@/routes/_protected/posts/-components/delete-post";
 import {
   postsSearchDefaults,
   postsSearchSchema,
   type PostSearchSchema,
-} from '@/routes/_protected/posts/-validations/posts-link-options';
+} from "@/routes/_protected/posts/-validations/posts-link-options";
 
-export const Route = createFileRoute('/_protected/posts/')({
+export const Route = createFileRoute("/_protected/posts/")({
   loader: () => queryClient.ensureQueryData(apiClient.posts.all.queryOptions()),
   component: RouteComponent,
   validateSearch: (input: SearchSchemaInput) =>
@@ -53,7 +53,7 @@ function PostItem({
   post,
   disabled,
 }: Readonly<{
-  post: RouterOutput['posts']['all'][number];
+  post: RouterOutput["posts"]["all"][number];
   disabled: boolean;
 }>) {
   return (
@@ -81,7 +81,7 @@ function PostItem({
 
 function RouteComponent() {
   const { data: posts, isPending } = useQuery(
-    apiClient.posts.all.queryOptions(),
+    apiClient.posts.all.queryOptions()
   );
   const navigate = useNavigate({ from: Route.fullPath });
   const search = Route.useSearch();
@@ -98,9 +98,9 @@ function RouteComponent() {
   const filteredPost = posts
     ?.filter((p) => p.title.toLowerCase().includes(lowercaseSearch))
     ?.sort((a, b) =>
-      search.sortDirection === 'asc'
+      search.sortDirection === "asc"
         ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   return (
     <div className="flex flex-col p-1.5 md:p-4 w-full max-w-6xl mx-auto">
@@ -119,12 +119,12 @@ function RouteComponent() {
                 className="w-12 border border-input hover:brightness-150"
                 onClick={() =>
                   updateFilters(
-                    'sortDirection',
-                    search.sortDirection === 'asc' ? 'desc' : 'asc',
+                    "sortDirection",
+                    search.sortDirection === "asc" ? "desc" : "asc"
                   )
                 }
               >
-                {search.sortDirection === 'asc' ? (
+                {search.sortDirection === "asc" ? (
                   <ArrowUpIcon />
                 ) : (
                   <ArrowDownIcon />
@@ -146,7 +146,7 @@ function RouteComponent() {
         <div className="relative sm:max-w-64 w-full">
           <Input
             value={search.searchString}
-            onChange={(e) => updateFilters('searchString', e.target.value)}
+            onChange={(e) => updateFilters("searchString", e.target.value)}
             placeholder="Search by title..."
             className="w-full pr-10 placeholder:italic peer"
           />
@@ -159,7 +159,7 @@ function RouteComponent() {
           ? filteredPost.map((p) => (
               <PostItem key={p.id} post={p} disabled={isPending} />
             ))
-          : 'There are no posts available.'}
+          : "There are no posts available."}
       </div>
     </div>
   );
