@@ -6,7 +6,7 @@
     "auth:schema:generate": "turbo run auth:schema:generate",
     "postauth:schema:generate": "echo NOTE: you will also need to fix styles and db:push your new schema",
     "build": "turbo run build",
-    "clean": "turbo run clean",
+    "clean": "git clean -xdf node_modules .turbo",
     "db:push": "turbo -F @repo/db push",
     "db:studio": "turbo -F @repo/db studio",
     "dev": "turbo watch dev --continue",
