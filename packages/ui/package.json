@@ -1,58 +1,61 @@
 {
   "name": "@repo/ui",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    "./lib/*": {
+      "types": "./dist/src/lib/*.d.ts",
+      "default": "./src/lib/*.ts"
+    },
+    "./components/*": {
+      "types": "./dist/src/components/*.d.ts",
+      "default": "./src/components/*.tsx"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
+    "postui-add": "prettier src --write --list-different",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "ui-add": "pnpm dlx shadcn@latest add && prettier src --write --list-different"
+    "ui-add": "pnpm dlx shadcn@latest add"
   },
   "dependencies": {
-    "@radix-ui/react-avatar": "^1.1.2",
-    "@radix-ui/react-label": "^2.1.1",
-    "@radix-ui/react-select": "^2.1.4",
-    "@radix-ui/react-slot": "^1.1.1",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "catalog:",
-    "next-themes": "^0.4.4",
-    "sonner": "^1.7.1",
-    "tailwind-merge": "^2.5.5"
-  },
-  "peerDependencies": {
-    "react": "catalog:react18",
-    "zod": "catalog:"
+    "@radix-ui/react-avatar": "catalog:",
+    "@radix-ui/react-dialog": "catalog:",
+    "@radix-ui/react-dropdown-menu": "catalog:",
+    "@radix-ui/react-icons": "catalog:",
+    "@radix-ui/react-label": "catalog:",
+    "@radix-ui/react-slot": "catalog:",
+    "@radix-ui/react-toast": "catalog:",
+    "@radix-ui/react-tooltip": "catalog:",
+    "class-variance-authority": "catalog:",
+    "next-themes": "catalog:",
+    "radix-ui": "catalog:",
+    "sonner": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@tooling/eslint-config": "workspace:*",
-    "@tooling/prettier-config": "workspace:*",
-    "@tooling/tailwind-config": "workspace:*",
-    "@tooling/tsconfig": "workspace:*",
-    "@turbo/gen": "^1.12.4",
-    "@types/react": "catalog:react18",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "react": "catalog:react18",
-    "typescript": "catalog:",
-    "zod": "catalog:"
+    "react": "catalog:",
+    "typescript": "catalog:"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/src/index.d.ts",
-      "default": "./src/index.ts"
-    },
-    "./*": {
-      "types": "./dist/src/*.d.ts",
-      "default": [
-        "./src/*.ts",
-        "./src/*.tsx"
-      ]
-    }
+  "peerDependencies": {
+    "react": "catalog:"
   },
-  "prettier": "@tooling/prettier-config"
+  "prettier": "@repo/prettier-config"
 }

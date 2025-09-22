@@ -1,33 +1,31 @@
 {
-  "name": "full-stack-starter",
+  "name": "rt-stack",
   "private": true,
-  "packageManager": "pnpm@9.12.0",
-  "engines": {
-    "node": ">=20.16.0",
-    "pnpm": ">=9.6.0"
-  },
+  "type": "module",
   "scripts": {
+    "auth:schema:generate": "turbo run auth:schema:generate",
+    "postauth:schema:generate": "echo NOTE: you will also need to fix styles and db:push your new schema",
     "build": "turbo run build",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo run clean",
+    "clean": "turbo run clean",
     "db:push": "turbo -F @repo/db push",
     "db:studio": "turbo -F @repo/db studio",
     "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F web...",
+    "env:copy-example": "turbo run env:copy-example",
+    "env:remove": "turbo run env:remove",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
+    "format:fix": "pnpm format --write",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
-    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
-    "lint:ws": "pnpm dlx sherif@latest",
-   
+    "lint:fix": "pnpm lint --fix",
+    "postclean": "git clean -xdf .cache .turbo node_modules",
+    "start": "turbo run start",
     "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add"
+    "ui-add": "turbo run ui-add -F @repo/ui --"
   },
+  "packageManager": "pnpm@10.15.1",
   "devDependencies": {
-    "prettier": "catalog:",
-    "turbo": "^2.3.3",
-    "typescript": "catalog:"
+    "turbo": "catalog:"
   },
-  "prettier": "@tooling/prettier-config"
-
+  "engines": {
+    "node": ">=22.10.0"
+  }
 }
