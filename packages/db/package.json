@@ -23,13 +23,13 @@
     "env:copy-example": "shx -- cp -n .env.example .env",
     "env:remove": "shx -- rm -f .env",
     "env:run": "dotenv --",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
     "push": "pnpm env:run drizzle-kit push",
     "studio": "pnpm env:run drizzle-kit studio",
     "typecheck": "tsc --build --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@repo/prettier-config",
   "dependencies": {
     "drizzle-orm": "catalog:",
     "drizzle-valibot": "catalog:",
@@ -37,16 +37,12 @@
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "catalog:",
-    "eslint": "catalog:",
     "shx": "catalog:",
-    "prettier": "catalog:",
     "typescript": "catalog:"
   }
 }

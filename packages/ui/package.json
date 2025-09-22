@@ -22,9 +22,9 @@
     "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "postui-add": "prettier src --write --list-different",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fixS": "pnpm exec biome lint --write ./src",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "ui-add": "pnpm dlx shadcn@latest add"
   },
@@ -44,18 +44,13 @@
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/prettier-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
     "react": "catalog:",
     "typescript": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:"
-  },
-  "prettier": "@repo/prettier-config"
+  }
 }

@@ -9,12 +9,12 @@
     "env:copy-example": "shx -- cp -n .env.example .env",
     "env:remove": "shx -- rm -f .env",
     "env:run": "dotenv --",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
     "start": "NODE_ENV=production pnpm env:run node dist/server.js",
     "typecheck": "tsc --noEmit"
   },
-  "prettier": "@repo/prettier-config",
   "dependencies": {
     "@hono/node-server": "catalog:",
     "@repo/api": "workspace:*",
@@ -24,13 +24,9 @@
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "dotenv-cli": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
     "shx": "catalog:",
     "tsdown": "catalog:",
     "tsx": "catalog:",

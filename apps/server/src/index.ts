@@ -1,11 +1,11 @@
-import { createApi } from '@repo/api/server';
-import { createAuth } from '@repo/auth/server';
-import { createDb } from '@repo/db/client';
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
-import { env } from './env';
-import { generateRootHtml } from './utils';
+import { createApi } from "@repo/api/server";
+import { createAuth } from "@repo/auth/server";
+import { createDb } from "@repo/db/client";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+import { env } from "./env";
+import { generateRootHtml } from "./utils";
 
 // ========================================================================= //
 
@@ -27,7 +27,7 @@ const api = createApi({
 });
 
 const app = new Hono<{
-  Variables: {
+  variables: {
     user: typeof auth.$Infer.Session.user | null;
     session: typeof auth.$Infer.Session.session | null;
   };
@@ -35,15 +35,13 @@ const app = new Hono<{
 
 // ========================================================================= //
 
-app.get('/healthcheck', (c) => {
-  return c.text('OK');
-});
+app.get("/healthcheck", (c) => c.text("OK"));
 
 app.use(logger());
 
-app.get('/', (c) => {
-  return c.html(generateRootHtml(env.PUBLIC_WEB_URL, env.PUBLIC_SERVER_URL));
-});
+app.get("/", (c) =>
+  c.html(generateRootHtml(env.PUBLIC_WEB_URL, env.PUBLIC_SERVER_URL))
+);
 
 // ========================================================================= //
 
@@ -52,15 +50,15 @@ app.use(
   cors({
     origin: trustedOrigins,
     credentials: true,
-    allowHeaders: ['Content-Type', 'Authorization'],
-    allowMethods: ['POST', 'GET', 'OPTIONS'],
-    exposeHeaders: ['Content-Length'],
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length"],
     maxAge: 600,
-  }),
+  })
 );
 
-app.on(['POST', 'GET'], `${env.PUBLIC_SERVER_API_PATH}/auth/*`, (c) =>
-  auth.handler(c.req.raw),
+app.on(["POST", "GET"], `${env.PUBLIC_SERVER_API_PATH}/auth/*`, (c) =>
+  auth.handler(c.req.raw)
 );
 
 // ========================================================================= //
@@ -78,7 +76,7 @@ app.use(
     }
 
     await next();
-  },
+  }
 );
 
 // ========================================================================= //

@@ -19,13 +19,9 @@
       "cache": false,
       "interactive": true
     },
-    "format": {
-      "outputs": [".cache/.prettiercache"],
-      "outputLogs": "new-only"
-    },
-    "lint": {
-      "dependsOn": ["^build"],
-      "outputs": [".cache/.eslintcache"]
+    "//#format": {},
+    "//#lint": {
+      "cache": false
     },
     "typecheck": {
       "dependsOn": ["^build"],

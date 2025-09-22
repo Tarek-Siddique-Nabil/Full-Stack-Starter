@@ -9,8 +9,9 @@
     "env:copy-example": "shx -- cp -n .env.example .env",
     "env:remove": "shx -- rm -f .env",
     "env:run": "dotenv -- vite --configLoader runner",
-    "format": "prettier --check . --ignore-path .prettierignore --ignore-path ../../.gitignore",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
     "preview": "pnpm env:run preview",
     "start": "pnpm env:run",
     "typecheck": "tsc --build"
@@ -33,11 +34,9 @@
     "url-join": "catalog:",
     "valibot": "catalog:"
   },
-  "prettier": "@repo/prettier-config",
+
   "devDependencies": {
     "@repo/api": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/prettier-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tanstack/router-plugin": "catalog:",
@@ -45,8 +44,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react-swc": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
     "shx": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
