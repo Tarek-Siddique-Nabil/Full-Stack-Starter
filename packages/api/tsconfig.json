@@ -1,21 +1,8 @@
 {
-  "extends": "@tooling/tsconfig/internal-package.json",
+  "extends": "@repo/typescript-config/internal-package.json",
+  "include": ["src"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "target": "ESNext",
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-    "baseUrl": "./",
-    "module": "ESNext",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "typeRoots": [
-      "../../node_modules/@types"
-    ],
-    "types": [
-      "node"
-    ],
+    "types": ["vite/client"]
   }
 }

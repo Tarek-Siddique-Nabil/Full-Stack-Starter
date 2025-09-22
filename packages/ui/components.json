@@ -4,15 +4,14 @@
   "rsc": false,
   "tsx": true,
   "tailwind": {
-    "config": "../../tooling/tailwind/web.ts",
-    "css": "unused.css",
+    "config": "",
+    "css": "../../tools/tailwind/style.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
   "aliases": {
-    "utils": "@repo/ui",
-    "components": "src/",
-    "ui": "src/"
-  },
-  "iconLibrary": "lucide"
+    "ui": "src/components",
+    "utils": "#/lib/utils",
+    "components": "#/components"
+  }
 }

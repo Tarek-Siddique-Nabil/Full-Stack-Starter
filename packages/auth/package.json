@@ -1,0 +1,30 @@
+{
+  "name": "@repo/auth",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc",
+    "format": "pnpm exec biome format --write ./src",
+    "auth:schema:generate": "pnpx @better-auth/cli generate --config ./src/cli-config.ts --output ../db/src/schemas/auth.ts",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
+    "typecheck": "tsc --noEmit"
+  },
+
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "better-auth": "catalog:",
+    "url-join": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsdown",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "pnpm env:run tsx watch src/server.ts",
+    "env:copy-example": "shx -- cp -n .env.example .env",
+    "env:remove": "shx -- rm -f .env",
+    "env:run": "dotenv --",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
+    "start": "NODE_ENV=production pnpm env:run node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "catalog:",
+    "@repo/api": "workspace:*",
+    "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
+    "hono": "catalog:",
+    "valibot": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "dotenv-cli": "catalog:",
+    "shx": "catalog:",
+    "tsdown": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}

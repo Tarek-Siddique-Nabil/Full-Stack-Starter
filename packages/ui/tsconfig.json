@@ -1,19 +1,12 @@
 {
-  "extends": "@tooling/tsconfig/internal-package.json",
+  "extends": "@repo/typescript-config/internal-package.json",
   "compilerOptions": {
-    "lib": [
-      "ES2022",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["ES2022", "dom", "dom.iterable"],
     "jsx": "preserve",
-    "rootDir": ".",
-    "outDir": "dist",
+    "paths": {
+      "#/*": ["./src/*"]
+    }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

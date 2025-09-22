@@ -1,39 +1,51 @@
 {
   "name": "web",
-  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm  next build",
-    "clean": "git clean -xdf .cache .next .turbo node_modules -f",
-    "dev": "pnpm next dev",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "start": "pnpm with-env next start",
-    "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
+    "build": "pnpm env:run build",
+    "clean": "git clean -xdf .cache dist .turbo node_modules",
+    "dev": "pnpm env:run dev",
+    "env:copy-example": "shx -- cp -n .env.example .env",
+    "env:remove": "shx -- rm -f .env",
+    "env:run": "dotenv -- vite --configLoader runner",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
+    "preview": "pnpm env:run preview",
+    "start": "pnpm env:run",
+    "typecheck": "tsc --build"
   },
   "dependencies": {
-    "react": "catalog:react18",
-    "react-dom": "catalog:react18",
-    "next": "^14.2.15"
-  },
-  "peerDependencies": {
-    "sonner": "^1.7.1"
-  },
-  "devDependencies": {
+    "@radix-ui/react-icons": "catalog:",
+    "@repo/auth": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@tooling/eslint-config": "workspace:*",
-    "@tooling/tsconfig": "workspace:*",
-    "@tooling/tailwind-config": "workspace:*",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/react-form": "catalog:",
+    "@tanstack/react-query": "catalog:",
+    "@tanstack/react-router": "catalog:",
+    "@tanstack/router-devtools": "catalog:",
+    "dotenv-cli": "catalog:",
+    "next-themes": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "sonner": "catalog:",
     "tailwindcss": "catalog:",
-    "typescript": "catalog:",
-    "@types/node": "^20.16.11",
-    "@types/react": "catalog:react18",
-    "@types/react-dom": "catalog:react18"
+    "url-join": "catalog:",
+    "valibot": "catalog:"
   },
 
-  "prettier": "@tooling/prettier-config"
+  "devDependencies": {
+    "@repo/api": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tanstack/router-plugin": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react-swc": "catalog:",
+    "shx": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
 }

@@ -1,27 +1,43 @@
 {
-  "name": "api",
+  "name": "@repo/api",
+  "private": true,
   "type": "module",
-  "version": "0.1.0",
-  "scripts": {
-    "dev": "tsx watch src/index.ts"
+  "exports": {
+    "./client": {
+      "types": "./dist/src/client/index.d.ts",
+      "default": "./src/client/index.ts"
+    },
+    "./server": {
+      "types": "./dist/src/server/index.d.ts",
+      "default": "./src/server/index.ts"
+    }
   },
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc",
+    "format": "pnpm exec biome format --write ./src",
+    "lint": "pnpm exec biome check ./src",
+    "lint:fix": "pnpm exec biome lint --write ./src",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+
   "dependencies": {
-    "@hono/node-server": "^1.13.7",
-    "@hono/zod-openapi": "^0.18.3",
-    "@scalar/hono-api-reference": "^0.5.165",
-    "hono": "^4.6.15",
-    "hono-pino": "^0.7.0",
-    "pino": "^9.6.0",
-    "pino-pretty": "^13.0.0",
-    "stoker": "^1.4.2"
+    "@orpc/client": "catalog:",
+    "@orpc/contract": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/openapi-client": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/tanstack-query": "catalog:",
+    "@orpc/valibot": "catalog:",
+    "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
+    "url-join": "catalog:",
+    "valibot": "catalog:"
   },
   "devDependencies": {
-    "@repo/validators": "workspace:*",
-    "@tooling/eslint-config": "workspace:*",
-    "@tooling/tsconfig": "workspace:*",
-    "eslint": "catalog:",
+    "@repo/typescript-config": "workspace:*",
     "typescript": "catalog:",
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1"
+    "vite": "catalog:"
   }
 }

@@ -1,9 +1,22 @@
-import "dotenv/config";
+import { drizzle } from 'drizzle-orm/node-postgres';
+import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import * as schema from './schema';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-export const db = drizzle({ client: pool });
+export interface DatabaseClientOptions {
+  databaseUrl?: string;
+  max?: number;
+}
+
+export type DatabaseInstance = NodePgDatabase<typeof schema>;
+
+export const createDb = (opts?: DatabaseClientOptions): DatabaseInstance => {
+  return drizzle({
+    schema,
+    casing: 'snake_case',
+    connection: {
+      connectionString: opts?.databaseUrl,
+      max: opts?.max,
+    },
+  });
+};

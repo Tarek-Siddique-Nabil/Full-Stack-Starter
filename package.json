@@ -1,33 +1,42 @@
 {
-  "name": "full-stack-starter",
+  "name": "rt-stack",
   "private": true,
-  "packageManager": "pnpm@9.12.0",
-  "engines": {
-    "node": ">=20.16.0",
-    "pnpm": ">=9.6.0"
-  },
+  "type": "module",
   "scripts": {
+    "auth:schema:generate": "turbo run auth:schema:generate",
+    "postauth:schema:generate": "echo NOTE: you will also need to fix styles and db:push your new schema",
     "build": "turbo run build",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo run clean",
+    "clean": "turbo run clean",
     "db:push": "turbo -F @repo/db push",
     "db:studio": "turbo -F @repo/db studio",
     "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F web...",
-    "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
-    "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
-    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
-    "lint:ws": "pnpm dlx sherif@latest",
-   
+    "env:copy-example": "turbo run env:copy-example",
+    "env:remove": "turbo run env:remove",
+    "format": "ultracite format",
+    "format:fix": "pnpm format --write",
+    "lint": "ultracite lint",
+    "lint:fix": "pnpm lint --fix",
+    "postclean": "git clean -xdf .cache .turbo node_modules",
+    "start": "turbo run start",
     "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add"
+    "ui-add": "turbo run ui-add -F @repo/ui --"
   },
+  "packageManager": "pnpm@10.15.1",
   "devDependencies": {
-    "prettier": "catalog:",
-    "turbo": "^2.3.3",
-    "typescript": "catalog:"
+    "@biomejs/biome": "2.2.4",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.0",
+    "turbo": "catalog:",
+    "ultracite": "5.4.4"
   },
-  "prettier": "@tooling/prettier-config"
-
+  "engines": {
+    "node": ">=22.10.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
+      "pnpm dlx ultracite fix"
+    ]
+  }
 }

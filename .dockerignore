@@ -1,0 +1,12 @@
+**/node_modules/
+**/dist/
+**/out/
+
+**/.cache/
+**/.turbo/
+**/.vscode/
+
+**/.DS_Store
+
+
+**/.env*
