@@ -1,18 +1,18 @@
-import { desc, eq } from '@repo/db';
-import { post, user } from '@repo/db/schema';
-import { protectedProcedure } from '../orpc';
+import { desc, eq } from "@repo/db";
+import { post, user } from "@repo/db/schema";
+import { protectedProcedure } from "../orpc";
 
 const postRouter = {
-  all: protectedProcedure.posts.all.handler(({ context }) => {
-    return context.db.query.post.findMany({
+  all: protectedProcedure.posts.all.handler(({ context }) =>
+    context.db.query.post.findMany({
       columns: {
         id: true,
         title: true,
         createdAt: true,
       },
       orderBy: desc(post.createdAt),
-    });
-  }),
+    })
+  ),
 
   one: protectedProcedure.posts.one.handler(
     async ({ context, input, errors }) => {
@@ -40,7 +40,7 @@ const postRouter = {
         });
       }
       return dbPost;
-    },
+    }
   ),
 
   create: protectedProcedure.posts.create.handler(
@@ -50,7 +50,7 @@ const postRouter = {
         ...input,
       });
       return {};
-    },
+    }
   ),
 
   delete: protectedProcedure.posts.delete.handler(
@@ -65,7 +65,7 @@ const postRouter = {
         });
       }
       return {};
-    },
+    }
   ),
 };
 

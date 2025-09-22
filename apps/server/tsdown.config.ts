@@ -1,12 +1,12 @@
-import { defineConfig } from 'tsdown';
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
-  entry: './src/server.ts',
-  format: 'esm',
+  entry: "./src/server.ts",
+  format: "esm",
   noExternal: [/.*/],
-  platform: 'node',
+  platform: "node",
   unbundle: false,
-  outDir: './dist',
+  outDir: "./dist",
   clean: true,
   minify: true,
   sourcemap: false,

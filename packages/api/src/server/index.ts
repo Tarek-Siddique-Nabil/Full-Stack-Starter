@@ -1,15 +1,15 @@
-import { onError, ORPCError } from '@orpc/client';
-import { ValidationError } from '@orpc/contract';
-import { OpenAPIHandler } from '@orpc/openapi/fetch';
-import { OpenAPIReferencePlugin } from '@orpc/openapi/plugins';
-import { StrictGetMethodPlugin } from '@orpc/server/plugins';
-import { experimental_ValibotToJsonSchemaConverter as ValibotToJsonSchemaConverter } from '@orpc/valibot';
-import urlJoin from 'url-join';
-import * as v from 'valibot';
-import type { AuthInstance } from '@repo/auth/server';
-import type { DatabaseInstance } from '@repo/db/client';
-import { createORPCContext } from './orpc';
-import { appRouter } from './router';
+import { ORPCError, onError } from "@orpc/client";
+import { ValidationError } from "@orpc/contract";
+import { OpenAPIHandler } from "@orpc/openapi/fetch";
+import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
+import { StrictGetMethodPlugin } from "@orpc/server/plugins";
+import { experimental_ValibotToJsonSchemaConverter as ValibotToJsonSchemaConverter } from "@orpc/valibot";
+import type { AuthInstance } from "@repo/auth/server";
+import type { DatabaseInstance } from "@repo/db/client";
+import urlJoin from "url-join";
+import * as v from "valibot";
+import { createORPCContext } from "./orpc";
+import { appRouter } from "./router";
 
 export type AppRouter = typeof appRouter;
 
@@ -28,13 +28,13 @@ export const createApi = ({
     plugins: [
       new StrictGetMethodPlugin(),
       new OpenAPIReferencePlugin({
-        docsTitle: 'RT Stack | API Reference',
-        docsProvider: 'scalar',
+        docsTitle: "RT Stack | API Reference",
+        docsProvider: "scalar",
         schemaConverters: [new ValibotToJsonSchemaConverter()],
         specGenerateOptions: {
           info: {
-            title: 'RT Stack API',
-            version: '1.0.0',
+            title: "RT Stack API",
+            version: "1.0.0",
           },
           servers: [{ url: urlJoin(serverUrl, apiPath) }],
         },
@@ -44,7 +44,7 @@ export const createApi = ({
       onError((error) => {
         if (
           error instanceof ORPCError &&
-          error.code === 'BAD_REQUEST' &&
+          error.code === "BAD_REQUEST" &&
           error.cause instanceof ValidationError
         ) {
           const valiIssues = error.cause.issues as [
@@ -52,7 +52,7 @@ export const createApi = ({
             ...v.BaseIssue<unknown>[],
           ];
           console.error(v.flatten(valiIssues));
-          throw new ORPCError('INPUT_VALIDATION_FAILED', {
+          throw new ORPCError("INPUT_VALIDATION_FAILED", {
             status: 422,
             message: v.summarize(valiIssues),
             cause: error.cause,
@@ -62,15 +62,14 @@ export const createApi = ({
     ],
   });
   return {
-    handler: async (request: Request) => {
-      return handler.handle(request, {
+    handler: async (request: Request) =>
+      handler.handle(request, {
         prefix: apiPath,
         context: await createORPCContext({
           db,
           auth,
           headers: request.headers,
         }),
-      });
-    },
+      }),
   };
 };

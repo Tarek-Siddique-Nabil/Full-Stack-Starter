@@ -4,32 +4,33 @@ import {
   MagnifyingGlassIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
+import type { RouterOutput } from "@repo/api/client";
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 import {
   Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   TooltipArrow,
+  TooltipContent,
   TooltipProvider,
+  TooltipTrigger,
 } from "@repo/ui/components/tooltip";
 import { useQuery } from "@tanstack/react-query";
 import {
   createFileRoute,
-  stripSearchParams,
+  Link,
   type SearchSchemaInput,
+  stripSearchParams,
+  useNavigate,
 } from "@tanstack/react-router";
-import { Link, useNavigate } from "@tanstack/react-router";
 import * as v from "valibot";
-import type { RouterOutput } from "@repo/api/client";
 import { apiClient } from "@/clients/apiClient";
 import { queryClient } from "@/clients/queryClient";
 import CreatePostButton from "@/routes/_protected/posts/-components/create-post";
 import DeletePostButton from "@/routes/_protected/posts/-components/delete-post";
 import {
+  type PostSearchSchema,
   postsSearchDefaults,
   postsSearchSchema,
-  type PostSearchSchema,
 } from "@/routes/_protected/posts/-validations/posts-link-options";
 
 export const Route = createFileRoute("/_protected/posts/")({
@@ -40,13 +41,11 @@ export const Route = createFileRoute("/_protected/posts/")({
   search: {
     middlewares: [stripSearchParams(postsSearchDefaults)],
   },
-  errorComponent: ({ error }) => {
-    return (
-      <div className="flex flex-col items-center w-full gap-y-3">
-        <div>{error.message}</div>
-      </div>
-    );
-  },
+  errorComponent: ({ error }) => (
+    <div className="flex w-full flex-col items-center gap-y-3">
+      <div>{error.message}</div>
+    </div>
+  ),
 });
 
 function PostItem({
@@ -58,16 +57,16 @@ function PostItem({
 }>) {
   return (
     <Link
-      to="/posts/$postid"
-      params={{ postid: post.id }}
-      className="border border-gray-500 bg-elevated p-4 w-full flex items-center justify-between gap-3 rounded-xl hover:brightness-90"
+      className="flex w-full items-center justify-between gap-3 rounded-xl border border-gray-500 bg-elevated p-4 hover:brightness-90"
       disabled={disabled}
+      params={{ postid: post.id }}
+      to="/posts/$postid"
     >
       <div className="flex flex-col gap-y-1">
-        <div className="text-lg font-bold line-clamp-3 wrap-anywhere">
+        <div className="wrap-anywhere line-clamp-3 font-bold text-lg">
           {post.title}
         </div>
-        <div className="italic text-sm">
+        <div className="text-sm italic">
           {new Date(post.createdAt).toLocaleString()}
         </div>
       </div>
@@ -103,19 +102,18 @@ function RouteComponent() {
         : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   return (
-    <div className="flex flex-col p-1.5 md:p-4 w-full max-w-6xl mx-auto">
+    <div className="mx-auto flex w-full max-w-6xl flex-col p-1.5 md:p-4">
       <div className="flex items-center justify-between border">
         <h1 className="text-2xl">Posts</h1>
         <CreatePostButton />
       </div>
-      <hr className="mt-4 border-b-2 border-gray-400" />
+      <hr className="mt-4 border-gray-400 border-b-2" />
 
-      <div className="mt-4 flex justify-end items-center relative gap-x-2">
+      <div className="relative mt-4 flex items-center justify-end gap-x-2">
         <TooltipProvider>
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild onClick={(e) => e.preventDefault()}>
               <Button
-                variant="link"
                 className="w-12 border border-input hover:brightness-150"
                 onClick={() =>
                   updateFilters(
@@ -123,6 +121,7 @@ function RouteComponent() {
                     search.sortDirection === "asc" ? "desc" : "asc"
                   )
                 }
+                variant="link"
               >
                 {search.sortDirection === "asc" ? (
                   <ArrowUpIcon />
@@ -132,32 +131,32 @@ function RouteComponent() {
               </Button>
             </TooltipTrigger>
             <TooltipContent
-              side="top"
               align="center"
-              sideOffset={4}
-              onPointerDownOutside={(e) => e.preventDefault()}
               className="bg-neutral-500 fill-neutral-500 duration-0"
+              onPointerDownOutside={(e) => e.preventDefault()}
+              side="top"
+              sideOffset={4}
             >
               <span>Sort by created date ({search.sortDirection})</span>
-              <TooltipArrow width={15} height={10} className="duration-0" />
+              <TooltipArrow className="duration-0" height={10} width={15} />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <div className="relative sm:max-w-64 w-full">
+        <div className="relative w-full sm:max-w-64">
           <Input
-            value={search.searchString}
+            className="peer w-full pr-10 placeholder:italic"
             onChange={(e) => updateFilters("searchString", e.target.value)}
             placeholder="Search by title..."
-            className="w-full pr-10 placeholder:italic peer"
+            value={search.searchString}
           />
-          <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-input peer-focus:text-foreground transition-colors" />
+          <MagnifyingGlassIcon className="-translate-y-1/2 absolute top-1/2 right-3 transform text-input transition-colors peer-focus:text-foreground" />
         </div>
       </div>
 
-      <div className="flex gap-x-3 gap-y-3 flex-wrap my-4 md:my-6">
+      <div className="my-4 flex flex-wrap gap-x-3 gap-y-3 md:my-6">
         {filteredPost?.length
           ? filteredPost.map((p) => (
-              <PostItem key={p.id} post={p} disabled={isPending} />
+              <PostItem disabled={isPending} key={p.id} post={p} />
             ))
           : "There are no posts available."}
       </div>

@@ -1,21 +1,21 @@
-import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { Button } from '@repo/ui/components/button';
-import { Input } from '@repo/ui/components/input';
-import { Label } from '@repo/ui/components/label';
-import { useForm } from '@tanstack/react-form';
-import { useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import * as v from 'valibot';
-import { authClient } from '@/clients/authClient';
-import FormFieldInfo from '@/routes/-components/common/form-field-info';
-import Spinner from '@/routes/-components/common/spinner';
+import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { Button } from "@repo/ui/components/button";
+import { Input } from "@repo/ui/components/input";
+import { Label } from "@repo/ui/components/label";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import * as v from "valibot";
+import { authClient } from "@/clients/authClient";
+import FormFieldInfo from "@/routes/-components/common/form-field-info";
+import Spinner from "@/routes/-components/common/spinner";
 
 const FormSchema = v.object({
-  email: v.pipe(v.string(), v.email('Please enter a valid email address')),
+  email: v.pipe(v.string(), v.email("Please enter a valid email address")),
   password: v.pipe(
     v.string(),
-    v.minLength(8, 'Password must be at least 8 characters'),
+    v.minLength(8, "Password must be at least 8 characters")
   ),
 });
 
@@ -24,8 +24,8 @@ export default function LoginCredentialsForm() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validators: {
       onChange: FormSchema,
@@ -38,9 +38,9 @@ export default function LoginCredentialsForm() {
         },
         {
           onSuccess: () => {
-            navigate({ to: '/' });
+            navigate({ to: "/" });
           },
-        },
+        }
       );
       if (error) {
         toast.error(error.message ?? JSON.stringify(error));
@@ -59,53 +59,50 @@ export default function LoginCredentialsForm() {
     >
       <div>
         <form.Field
+          children={(field) => (
+            <>
+              <Label htmlFor={field.name}>Email</Label>
+              <Input
+                className="mt-1"
+                id={field.name}
+                name={field.name}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                type="email"
+                value={field.state.value}
+              />
+              <FormFieldInfo field={field} />
+            </>
+          )}
           name="email"
-          children={(field) => {
-            return (
-              <>
-                <Label htmlFor={field.name}>Email</Label>
-                <Input
-                  className="mt-1"
-                  id={field.name}
-                  type="email"
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                />
-                <FormFieldInfo field={field} />
-              </>
-            );
-          }}
         />
       </div>
       <div>
         <form.Field
-          name="password"
           children={(field) => (
             <>
               <Label htmlFor={field.name}>Password</Label>
               <>
-                <div className="flex justify-end items-center relative w-full">
+                <div className="relative flex w-full items-center justify-end">
                   <Input
                     className="mt-1"
                     id={field.name}
-                    type={isPasswordVisible ? 'text' : 'password'}
                     name={field.name}
-                    value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
+                    type={isPasswordVisible ? "text" : "password"}
+                    value={field.state.value}
                   />
                   <Button
-                    className="absolute mr-2 w-7 h-7 rounded-full"
-                    type="button"
-                    tabIndex={-1}
-                    variant="ghost"
-                    size="icon"
+                    className="absolute mr-2 h-7 w-7 rounded-full"
                     onClick={(e) => {
                       e.preventDefault();
                       setIsPasswordVisible(!isPasswordVisible);
                     }}
+                    size="icon"
+                    tabIndex={-1}
+                    type="button"
+                    variant="ghost"
                   >
                     {isPasswordVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
                   </Button>
@@ -114,15 +111,16 @@ export default function LoginCredentialsForm() {
               </>
             </>
           )}
+          name="password"
         />
       </div>
       <form.Subscribe
-        selector={(state) => [state.canSubmit, state.isSubmitting]}
         children={([canSubmit, isSubmitting]) => (
-          <Button type="submit" disabled={!canSubmit} className="h-12 mt-3">
-            {isSubmitting ? <Spinner /> : 'Log in'}
+          <Button className="mt-3 h-12" disabled={!canSubmit} type="submit">
+            {isSubmitting ? <Spinner /> : "Log in"}
           </Button>
         )}
+        selector={(state) => [state.canSubmit, state.isSubmitting]}
       />
     </form>
   );

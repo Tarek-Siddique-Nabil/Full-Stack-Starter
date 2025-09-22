@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 export default function NavContainer({
   children,
@@ -6,7 +6,7 @@ export default function NavContainer({
   children?: ReactNode;
 }>) {
   return (
-    <div className="px-2 md:px-4 flex items-center justify-between text-lg bg-nav h-12">
+    <div className="flex h-12 items-center justify-between bg-nav px-2 text-lg md:px-4">
       {children}
     </div>
   );

@@ -1,37 +1,37 @@
-import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { Button } from '@repo/ui/components/button';
-import { Input } from '@repo/ui/components/input';
-import { Label } from '@repo/ui/components/label';
-import { useForm } from '@tanstack/react-form';
-import { useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import * as v from 'valibot';
-import { authClient } from '@/clients/authClient';
-import FormFieldInfo from '@/routes/-components/common/form-field-info';
-import Spinner from '@/routes/-components/common/spinner';
+import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { Button } from "@repo/ui/components/button";
+import { Input } from "@repo/ui/components/input";
+import { Label } from "@repo/ui/components/label";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import * as v from "valibot";
+import { authClient } from "@/clients/authClient";
+import FormFieldInfo from "@/routes/-components/common/form-field-info";
+import Spinner from "@/routes/-components/common/spinner";
 
 const FormSchema = v.pipe(
   v.object({
     name: v.pipe(
       v.string(),
-      v.minLength(2, 'Name must be at least 2 characters'),
+      v.minLength(2, "Name must be at least 2 characters")
     ),
-    email: v.pipe(v.string(), v.email('Please enter a valid email address')),
+    email: v.pipe(v.string(), v.email("Please enter a valid email address")),
     password: v.pipe(
       v.string(),
-      v.minLength(8, 'Password must be at least 8 characters'),
+      v.minLength(8, "Password must be at least 8 characters")
     ),
     confirmPassword: v.string(),
   }),
   v.forward(
     v.partialCheck(
-      [['password'], ['confirmPassword']],
+      [["password"], ["confirmPassword"]],
       (input) => input.password === input.confirmPassword,
-      'The two passwords do not match.',
+      "The two passwords do not match."
     ),
-    ['confirmPassword'],
-  ),
+    ["confirmPassword"]
+  )
 );
 
 export default function RegisterCredentialsForm() {
@@ -42,10 +42,10 @@ export default function RegisterCredentialsForm() {
 
   const form = useForm({
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     validators: {
       onChange: FormSchema,
@@ -59,9 +59,9 @@ export default function RegisterCredentialsForm() {
         },
         {
           onSuccess: () => {
-            navigate({ to: '/' });
+            navigate({ to: "/" });
           },
-        },
+        }
       );
       if (error) {
         toast.error(error.message ?? JSON.stringify(error));
@@ -80,70 +80,69 @@ export default function RegisterCredentialsForm() {
     >
       <div>
         <form.Field
-          name="name"
           children={(field) => (
             <>
               <Label htmlFor={field.name}>Full Name</Label>
               <Input
                 className="mt-1"
                 id={field.name}
-                type="text"
                 name={field.name}
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                type="text"
+                value={field.state.value}
               />
               <FormFieldInfo field={field} />
             </>
           )}
+          name="name"
         />
       </div>
       <div>
         <form.Field
-          name="email"
           children={(field) => (
             <>
               <Label htmlFor={field.name}>Email</Label>
               <Input
                 className="mt-1"
                 id={field.name}
-                type="email"
                 name={field.name}
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                type="email"
+                value={field.state.value}
               />
               <FormFieldInfo field={field} />
             </>
           )}
+          name="email"
         />
       </div>
       <div>
         <form.Field
-          name="password"
           children={(field) => (
             <>
               <Label htmlFor={field.name}>Password</Label>
-              <div className="flex justify-end items-center relative w-full">
+              <div className="relative flex w-full items-center justify-end">
                 <Input
                   className="mt-1"
                   id={field.name}
-                  type={isPasswordVisible ? 'text' : 'password'}
                   name={field.name}
-                  value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
+                  type={isPasswordVisible ? "text" : "password"}
+                  value={field.state.value}
                 />
                 <Button
-                  className="absolute mr-2 w-7 h-7 rounded-full"
-                  type="button"
-                  tabIndex={-1}
-                  variant="ghost"
-                  size="icon"
+                  className="absolute mr-2 h-7 w-7 rounded-full"
                   onClick={(e) => {
                     e.preventDefault();
                     setIsPasswordVisible(!isPasswordVisible);
                   }}
+                  size="icon"
+                  tabIndex={-1}
+                  type="button"
+                  variant="ghost"
                 >
                   {isPasswordVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
                 </Button>
@@ -151,34 +150,34 @@ export default function RegisterCredentialsForm() {
               <FormFieldInfo field={field} />
             </>
           )}
+          name="password"
         />
       </div>
       <div>
         <form.Field
-          name="confirmPassword"
           children={(field) => (
             <>
               <Label htmlFor={field.name}>Confirm Password</Label>
-              <div className="flex justify-end items-center relative w-full">
+              <div className="relative flex w-full items-center justify-end">
                 <Input
                   className="mt-1"
                   id={field.name}
-                  type={isConfirmPasswordVisible ? 'text' : 'password'}
                   name={field.name}
-                  value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
+                  type={isConfirmPasswordVisible ? "text" : "password"}
+                  value={field.state.value}
                 />
                 <Button
-                  className="absolute mr-2 w-7 h-7 rounded-full"
-                  type="button"
-                  tabIndex={-1}
-                  variant="ghost"
-                  size="icon"
+                  className="absolute mr-2 h-7 w-7 rounded-full"
                   onClick={(e) => {
                     e.preventDefault();
                     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
                   }}
+                  size="icon"
+                  tabIndex={-1}
+                  type="button"
+                  variant="ghost"
                 >
                   {isConfirmPasswordVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
                 </Button>
@@ -186,15 +185,16 @@ export default function RegisterCredentialsForm() {
               <FormFieldInfo field={field} />
             </>
           )}
+          name="confirmPassword"
         />
       </div>
       <form.Subscribe
-        selector={(state) => [state.canSubmit, state.isSubmitting]}
         children={([canSubmit, isSubmitting]) => (
-          <Button type="submit" disabled={!canSubmit} className="h-12 mt-3">
-            {isSubmitting ? <Spinner /> : 'Register'}
+          <Button className="mt-3 h-12" disabled={!canSubmit} type="submit">
+            {isSubmitting ? <Spinner /> : "Register"}
           </Button>
         )}
+        selector={(state) => [state.canSubmit, state.isSubmitting]}
       />
     </form>
   );

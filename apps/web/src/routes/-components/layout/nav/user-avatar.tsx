@@ -1,17 +1,17 @@
-import { ExitIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { ExitIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@repo/ui/components/avatar';
+} from "@repo/ui/components/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@repo/ui/components/dropdown-menu';
-import { useTheme } from 'next-themes';
-import { authClient } from '@/clients/authClient';
+} from "@repo/ui/components/dropdown-menu";
+import { useTheme } from "next-themes";
+import { authClient } from "@/clients/authClient";
 
 export default function UserAvatar({
   user,
@@ -23,18 +23,18 @@ export default function UserAvatar({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer w-8.5 h-8.5">
-          <AvatarImage referrerPolicy="no-referrer" src={user.image ?? ''} />
+        <Avatar className="h-8.5 w-8.5 cursor-pointer">
+          <AvatarImage referrerPolicy="no-referrer" src={user.image ?? ""} />
           <AvatarFallback className="text-sm">
-            {(user.name?.split(' ')[0]?.[0] || '') +
-              (user.name?.split(' ')[1]?.[0] || '')}
+            {(user.name?.split(" ")[0]?.[0] || "") +
+              (user.name?.split(" ")[1]?.[0] || "")}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
-        <div className="flex flex-col p-2 max-w-full break-words whitespace-break-spaces">
-          <span className="text-sm font-bold line-clamp-2">{user.name}</span>
-          <span className="text-xs italic mt-1 line-clamp-2">{user.email}</span>
+        <div className="flex max-w-full flex-col whitespace-break-spaces break-words p-2">
+          <span className="line-clamp-2 font-bold text-sm">{user.name}</span>
+          <span className="mt-1 line-clamp-2 text-xs italic">{user.email}</span>
         </div>
 
         <hr className="mb-2" />
@@ -42,19 +42,19 @@ export default function UserAvatar({
           className="cursor-pointer"
           onClick={(e) => {
             e.preventDefault();
-            setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+            setTheme(resolvedTheme === "dark" ? "light" : "dark");
           }}
         >
-          {resolvedTheme === 'dark' ? <MoonIcon /> : <SunIcon />}
+          {resolvedTheme === "dark" ? <MoonIcon /> : <SunIcon />}
           <span className="ml-[5px] capitalize">Theme</span>
         </DropdownMenuItem>
         <DropdownMenuItem
+          className="cursor-pointer"
           onClick={async () => {
             await authClient.signOut();
           }}
-          className="cursor-pointer"
         >
-          <ExitIcon className="mr-[5px] w-5 ml-[0.5px]" />
+          <ExitIcon className="mr-[5px] ml-[0.5px] w-5" />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

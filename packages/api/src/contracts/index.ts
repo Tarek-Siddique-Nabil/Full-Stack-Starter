@@ -1,5 +1,5 @@
-import { oc } from '@orpc/contract';
-import postContract from './posts';
+import { oc } from "@orpc/contract";
+import postContract from "./posts";
 
 export const appContract = oc
   .errors({
@@ -8,11 +8,11 @@ export const appContract = oc
     },
     UNAUTHORIZED: {
       status: 401,
-      message: 'Missing user session. Please log in!',
+      message: "Missing user session. Please log in!",
     },
     FORBIDDEN: {
       status: 403,
-      message: 'You do not have enough permission to perform this action.',
+      message: "You do not have enough permission to perform this action.",
     },
   })
   .router({

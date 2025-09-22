@@ -1,9 +1,8 @@
-import { type BetterAuthOptions, betterAuth } from 'better-auth';
-
-import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { openAPI } from 'better-auth/plugins';
-import urlJoin from 'url-join';
-import type { DatabaseInstance } from '@repo/db/client';
+import type { DatabaseInstance } from "@repo/db/client";
+import { type BetterAuthOptions, betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { openAPI } from "better-auth/plugins";
+import urlJoin from "url-join";
 
 export interface AuthOptions {
   webUrl: string;
@@ -21,7 +20,7 @@ export type AuthInstance = ReturnType<typeof createAuth>;
 export const getBaseOptions = (db: DatabaseInstance) =>
   ({
     database: drizzleAdapter(db, {
-      provider: 'pg',
+      provider: "pg",
     }),
 
     /**
@@ -37,10 +36,10 @@ export const createAuth = ({
   apiPath,
   db,
   authSecret,
-}: AuthOptions) => {
-  return betterAuth({
+}: AuthOptions) =>
+  betterAuth({
     ...getBaseOptions(db),
-    baseURL: urlJoin(serverUrl, apiPath, 'auth'),
+    baseURL: urlJoin(serverUrl, apiPath, "auth"),
     secret: authSecret,
     trustedOrigins: [webUrl].map((url) => new URL(url).origin),
     session: {
@@ -55,4 +54,3 @@ export const createAuth = ({
       requireEmailVerification: false,
     },
   });
-};

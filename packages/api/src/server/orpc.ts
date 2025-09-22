@@ -1,7 +1,7 @@
-import { os, implement } from '@orpc/server';
-import type { AuthInstance } from '@repo/auth/server';
-import type { DatabaseInstance } from '@repo/db/client';
-import { appContract } from '../contracts';
+import { implement, os } from "@orpc/server";
+import type { AuthInstance } from "@repo/auth/server";
+import type { DatabaseInstance } from "@repo/db/client";
+import { appContract } from "../contracts";
 
 export const createORPCContext = async ({
   auth,
@@ -13,7 +13,7 @@ export const createORPCContext = async ({
   headers: Headers;
 }): Promise<{
   db: DatabaseInstance;
-  session: AuthInstance['$Infer']['Session'] | null;
+  session: AuthInstance["$Infer"]["Session"] | null;
 }> => {
   const session = await auth.api.getSession({
     headers,
@@ -26,8 +26,8 @@ export const createORPCContext = async ({
 
 const timingMiddleware = os.middleware(async ({ next, path }) => {
   const start = Date.now();
-  let waitMsDisplay = '';
-  if (process.env.NODE_ENV !== 'production') {
+  let waitMsDisplay = "";
+  if (process.env.NODE_ENV !== "production") {
     // artificial delay in dev 100-500ms
     const waitMs = Math.floor(Math.random() * 400) + 100;
     await new Promise((resolve) => setTimeout(resolve, waitMs));
@@ -37,7 +37,7 @@ const timingMiddleware = os.middleware(async ({ next, path }) => {
   const end = Date.now();
 
   console.log(
-    `\t[RPC] /${path.join('/')} executed after ${end - start}ms${waitMsDisplay}`,
+    `\t[RPC] /${path.join("/")} executed after ${end - start}ms${waitMsDisplay}`
   );
   return result;
 });
@@ -52,7 +52,7 @@ export const protectedProcedure = publicProcedure.use(
   ({ context, next, errors }) => {
     if (!context.session?.user) {
       throw errors.UNAUTHORIZED({
-        message: 'Missing user session. Please log in!',
+        message: "Missing user session. Please log in!",
       });
     }
     return next({
@@ -60,5 +60,5 @@ export const protectedProcedure = publicProcedure.use(
         session: { ...context.session },
       },
     });
-  },
+  }
 );

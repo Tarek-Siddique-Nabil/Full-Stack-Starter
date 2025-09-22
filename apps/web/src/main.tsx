@@ -1,11 +1,11 @@
-import '@/style.css';
-import { RouterProvider } from '@tanstack/react-router';
-import { ThemeProvider } from 'next-themes';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createRouter } from '@/router';
+import "@/style.css";
+import { RouterProvider } from "@tanstack/react-router";
+import { ThemeProvider } from "next-themes";
+import React from "react";
+import ReactDom from "react-dom/client";
+import { createRouter } from "@/router";
 
-const ROOT_ELEMENT_ID = 'app';
+const ROOT_ELEMENT_ID = "app";
 
 const rootElement = document.getElementById(ROOT_ELEMENT_ID);
 
@@ -16,18 +16,18 @@ if (!rootElement) {
 const router = createRouter();
 
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
+  const root = ReactDom.createRoot(rootElement);
   root.render(
     <React.StrictMode>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
-        themes={['light', 'dark']}
-        enableSystem
         disableTransitionOnChange
+        enableSystem
+        themes={["light", "dark"]}
       >
         <RouterProvider router={router} />
       </ThemeProvider>
-    </React.StrictMode>,
+    </React.StrictMode>
   );
 }

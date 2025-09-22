@@ -1,5 +1,5 @@
-import { createAuthClient as createBetterAuthClient } from 'better-auth/react';
-import urlJoin from 'url-join';
+import { createAuthClient as createBetterAuthClient } from "better-auth/react";
+import urlJoin from "url-join";
 
 export interface AuthClientOptions {
   apiBaseUrl: string;
@@ -11,7 +11,7 @@ export const createAuthClient = ({
   apiBasePath,
 }: AuthClientOptions) =>
   createBetterAuthClient({
-    baseURL: urlJoin(apiBaseUrl, apiBasePath, 'auth'),
+    baseURL: urlJoin(apiBaseUrl, apiBasePath, "auth"),
 
     /**
      * Only uncomment the line below if you are using plugins, so that

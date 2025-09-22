@@ -1,6 +1,6 @@
-import { createDb } from '@repo/db/client';
-import { betterAuth } from 'better-auth';
-import { getBaseOptions } from './server';
+import { createDb } from "@repo/db/client";
+import { betterAuth } from "better-auth";
+import { getBaseOptions } from "./server";
 
 /**
  * @internal

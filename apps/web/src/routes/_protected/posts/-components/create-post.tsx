@@ -1,6 +1,6 @@
-import { PlusIcon } from '@radix-ui/react-icons';
-import { isDefinedError } from '@repo/api/client';
-import { Button } from '@repo/ui/components/button';
+import { PlusIcon } from "@radix-ui/react-icons";
+import { isDefinedError } from "@repo/api/client";
+import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -9,29 +9,29 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@repo/ui/components/dialog';
-import { Input } from '@repo/ui/components/input';
-import { Label } from '@repo/ui/components/label';
-import { Textarea } from '@repo/ui/components/textarea';
-import { useForm } from '@tanstack/react-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import * as v from 'valibot';
-import { apiClient } from '@/clients/apiClient';
-import FormFieldInfo from '@/routes/-components/common/form-field-info';
-import Spinner from '@/routes/-components/common/spinner';
+} from "@repo/ui/components/dialog";
+import { Input } from "@repo/ui/components/input";
+import { Label } from "@repo/ui/components/label";
+import { Textarea } from "@repo/ui/components/textarea";
+import { useForm } from "@tanstack/react-form";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
+import * as v from "valibot";
+import { apiClient } from "@/clients/apiClient";
+import FormFieldInfo from "@/routes/-components/common/form-field-info";
+import Spinner from "@/routes/-components/common/spinner";
 
 const FormSchema = v.object({
   title: v.pipe(
     v.string(),
-    v.minLength(3, 'Please enter at least 3 characters'),
-    v.maxLength(256, 'Please enter no more than 256 characters'),
+    v.minLength(3, "Please enter at least 3 characters"),
+    v.maxLength(256, "Please enter no more than 256 characters")
   ),
   content: v.pipe(
     v.string(),
-    v.minLength(5, 'Please enter at least 5 characters'),
-    v.maxLength(512, 'Please enter no more than 512 characters'),
+    v.minLength(5, "Please enter at least 5 characters"),
+    v.maxLength(512, "Please enter no more than 512 characters")
   ),
 });
 
@@ -40,7 +40,7 @@ const generateTimestamp = () => +new Date();
 export default function CreatePostButton() {
   const getAllPostsQuery = useQuery(apiClient.posts.all.queryOptions());
   const createPostMutation = useMutation(
-    apiClient.posts.create.mutationOptions(),
+    apiClient.posts.create.mutationOptions()
   );
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -75,7 +75,7 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
             onSuccess: async () => {
               setOpenDialog(false);
               await getAllPostsQuery.refetch();
-              toast.success('Your post has been created!');
+              toast.success("Your post has been created!");
               formApi.reset();
             },
             onError: (error) => {
@@ -85,7 +85,7 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
                 toast.error(`${error.name} | ${error.message}`);
               }
             },
-          },
+          }
         )
         .catch(() => {
           /* Error already handled */
@@ -94,7 +94,7 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
   });
 
   return (
-    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+    <Dialog onOpenChange={setOpenDialog} open={openDialog}>
       <DialogTrigger asChild>
         <Button className="h-8.5 px-3 md:h-10 md:px-4">
           <PlusIcon />
@@ -103,8 +103,8 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
       </DialogTrigger>
       <DialogContent
         // Don't auto-focus the first input field
+        className="data-[state=open]:slide-in-from-right-1/3 data-[state=closed]:slide-out-to-right-1/3 max-w-[90vw] rounded-lg xl:max-w-screen-lg"
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="max-w-[90vw] xl:max-w-screen-lg data-[state=open]:slide-in-from-right-1/3 data-[state=closed]:slide-out-to-right-1/3 rounded-lg"
       >
         <DialogHeader>
           <DialogTitle>Create Post</DialogTitle>
@@ -122,59 +122,55 @@ and to the unceasing vigilance of agents of the United States Handicapper Genera
         >
           <div>
             <form.Field
+              children={(field) => (
+                <>
+                  <Label htmlFor={field.name}>Title</Label>
+                  <Input
+                    className="mt-2"
+                    id={field.name}
+                    name={field.name}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    value={field.state.value}
+                  />
+                  <FormFieldInfo field={field} />
+                </>
+              )}
               name="title"
-              children={(field) => {
-                return (
-                  <>
-                    <Label htmlFor={field.name}>Title</Label>
-                    <Input
-                      className="mt-2"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    <FormFieldInfo field={field} />
-                  </>
-                );
-              }}
             />
           </div>
           <div>
             <form.Field
+              children={(field) => (
+                <>
+                  <Label htmlFor={field.name}>Content</Label>
+                  <Textarea
+                    className="mt-2"
+                    id={field.name}
+                    name={field.name}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    rows={8}
+                    value={field.state.value}
+                  />
+                  <FormFieldInfo field={field} />
+                </>
+              )}
               name="content"
-              children={(field) => {
-                return (
-                  <>
-                    <Label htmlFor={field.name}>Content</Label>
-                    <Textarea
-                      className="mt-2"
-                      rows={8}
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    <FormFieldInfo field={field} />
-                  </>
-                );
-              }}
             />
           </div>
           <DialogFooter>
             <form.Subscribe
-              selector={(state) => [state.canSubmit, state.isSubmitting]}
               children={([canSubmit, isSubmitting]) => (
                 <Button
-                  type="submit"
-                  disabled={!canSubmit}
                   className="mt-3 h-10 w-24"
+                  disabled={!canSubmit}
+                  type="submit"
                 >
-                  {isSubmitting ? <Spinner /> : `Create`}
+                  {isSubmitting ? <Spinner /> : "Create"}
                 </Button>
               )}
+              selector={(state) => [state.canSubmit, state.isSubmitting]}
             />
           </DialogFooter>
         </form>

@@ -1,7 +1,7 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
+import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/node-postgres";
 
-import * as schema from './schema';
+import * as schema from "./schema";
 
 export interface DatabaseClientOptions {
   databaseUrl?: string;
@@ -10,13 +10,12 @@ export interface DatabaseClientOptions {
 
 export type DatabaseInstance = NodePgDatabase<typeof schema>;
 
-export const createDb = (opts?: DatabaseClientOptions): DatabaseInstance => {
-  return drizzle({
+export const createDb = (opts?: DatabaseClientOptions): DatabaseInstance =>
+  drizzle({
     schema,
-    casing: 'snake_case',
+    casing: "snake_case",
     connection: {
       connectionString: opts?.databaseUrl,
       max: opts?.max,
     },
   });
-};
